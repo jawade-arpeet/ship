@@ -20,6 +20,7 @@ func New(
 
 	router := gin.New()
 	router.Use(gin.Recovery())
+	router.Use(middleware.Request.SetRequestID())
 
 	apiGrp := router.Group("/api")
 
