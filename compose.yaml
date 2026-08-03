@@ -1,0 +1,27 @@
+name: ship
+
+services:
+    postgres:
+        image: postgres:18-alpine
+        container_name: ship-postgres
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: ship-username
+            POSTGRES_PASSWORD: ship-password
+            POSTGRES_DB: ship-db
+        networks:
+            - ship-network
+    redis:
+        image: redis:8-alpine
+        container_name: ship-redis
+        ports:
+            - 6379:6379
+        command: redis-server --requirepass ship-password --appendonly yes
+        restart: unless-stopped
+        networks:
+            - ship-network
+
+networks:
+    ship-network:
+        name: ship-network
