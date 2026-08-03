@@ -1,0 +1,22 @@
+{
+    "server": {
+        "port": 8080,
+        "run_env": "dev"
+    },
+    "client": {
+        "postgres": {
+            "host": "localhost",
+            "port": 5432,
+            "username": "ship-username",
+            "password": "ship-password",
+            "db_name": "ship-db"
+        },
+        "redis": {
+            "host": "localhost",
+            "port": 6379,
+            "username": "",
+            "password": "ship-password",
+            "db_name": 0
+        }
+    }
+}
