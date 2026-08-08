@@ -16,7 +16,12 @@ type RedisConfig struct {
 	DBName   string `mapstructure:"db_name" validate:"required"`
 }
 
+type ResendConfig struct {
+	APIKey string `mapstructure:"api_key" validate:"required"`
+}
+
 type ClientConfig struct {
 	Postgres *PostgresConfig `mapstructure:"postgres" validate:"required"`
 	Redis    *RedisConfig    `mapstructure:"redis" validate:"required"`
+	Resend   *ResendConfig   `mapstructure:"resend" validate:"required"`
 }

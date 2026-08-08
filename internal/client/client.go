@@ -9,6 +9,7 @@ import (
 type Client struct {
 	Postgres *PostgresClient
 	Redis    *RedisClient
+	Resend   *ResendClient
 }
 
 func New(
@@ -25,7 +26,13 @@ func New(
 		return nil, fmt.Errorf("failed to create redis client: %w", err)
 	}
 
-	return &Client{Postgres: pg, Redis: rds}, nil
+	resend := newResendClient(cfg.Resend)
+
+	return &Client{
+		Postgres: pg,
+		Redis:    rds,
+		Resend:   resend,
+	}, nil
 }
 
 func (c *Client) Close() {

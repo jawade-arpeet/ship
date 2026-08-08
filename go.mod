@@ -9,6 +9,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.10.0
 	github.com/redis/go-redis/v9 v9.22.0
+	github.com/resend/resend-go/v3 v3.12.0
 	github.com/spf13/viper v1.21.0
 )
 

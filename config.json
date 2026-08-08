@@ -17,6 +17,9 @@
             "username": "",
             "password": "ship-password",
             "db_name": 0
+        },
+        "resend": {
+            "api_key": "re_xxxxxxxxx"
         }
     }
 }
