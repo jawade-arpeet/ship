@@ -53,7 +53,7 @@ func (c *PostgresClient) wrapErr(err error) error {
 		return nil
 	}
 	if errors.Is(err, pgx.ErrNoRows) {
-		return err
+		return errs.ErrPgNoRows
 	}
 
 	pgErr, ok := errors.AsType[*pgconn.PgError](err)
