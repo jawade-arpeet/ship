@@ -29,6 +29,8 @@ func New() (*Server, error) {
 		return nil, fmt.Errorf("failed to create client: %w", err)
 	}
 
+	defer clt.Close()
+
 	repo := repository.New(clt)
 	svc := service.New(repo)
 	mw := middleware.New()
