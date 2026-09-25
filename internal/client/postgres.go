@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"ship/internal/config"
 
+	"github.com/georgysavva/scany/v2/pgxscan"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -38,4 +40,24 @@ func newPostgresClient(ctx context.Context) (*PostgresClient, error) {
 
 func (c *PostgresClient) Close() {
 	c.pool.Close()
+}
+
+func (c *PostgresClient) QueryOne[T any](
+	ctx context.Context,
+	query string,
+	args pgx.NamedArgs,
+) (*T, error) {
+	row, err := c.pool.Query(ctx, query, args)
+	if err != nil {
+		return nil, err
+	}
+
+	defer row.Close()
+
+	var result T
+	if err := pgxscan.ScanOne(&result, row); err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }
