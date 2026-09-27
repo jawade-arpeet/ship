@@ -33,10 +33,17 @@ type RedisConfig struct {
 	Database string `mapstructure:"database" validate:"required,numeric"`
 }
 
+type JWTConfig struct {
+	Secret   string   `mapstructure:"secret" validate:"required"`
+	Issuer   string   `mapstructure:"issuer" validate:"required"`
+	Audience []string `mapstructure:"audience" validate:"required"`
+}
+
 type Config struct {
 	Server   *ServerConfig   `mapstructure:"server" validate:"required"`
 	Postgres *PostgresConfig `mapstructure:"postgres" validate:"required"`
 	Redis    *RedisConfig    `mapstructure:"redis" validate:"required"`
+	JWT      *JWTConfig      `mapstructure:"jwt" validate:"required"`
 }
 
 func Load() error {
@@ -59,6 +66,10 @@ func Load() error {
 		"redis.username",
 		"redis.password",
 		"redis.database",
+		"jwt.secret",
+		"jwt.subject",
+		"jwt.issuer",
+		"jwt.audience",
 	}
 
 	for _, key := range keys {
@@ -90,4 +101,8 @@ func GetPostgresConfig() *PostgresConfig {
 
 func GetRedisConfig() *RedisConfig {
 	return cfg.Redis
+}
+
+func GetJWTConfig() *JWTConfig {
+	return cfg.JWT
 }
